@@ -1,4 +1,4 @@
-package com.assignment.bikeapp;
+package com.assignment.bikeapp.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
