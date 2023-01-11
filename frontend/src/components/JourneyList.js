@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import Journey from "./Journey";
-import {Divider, FormControl, Grid, InputLabel, List, ListItem, MenuItem, Pagination, Select} from "@mui/material";
+import {Divider, Grid, ListItem} from "@mui/material";
+import ListWithPagination from "./ListWithPagination";
 
-const options = [
-    { value: 20, label: "20" },
-    { value: 50, label: "50" },
-    { value: 100, label: "100" },
-    { value: 1000, label: "1000" },
-];
 
 class JourneyList extends Component {
 
@@ -40,12 +35,12 @@ class JourneyList extends Component {
         this.fetchJourneys()
     }
 
-    handleItemCountChange = (e, selectedOption) => {
-        console.log(`Option selected:`, selectedOption.props.value);
+    handleItemCountChange = (selectedOption) => {
+        console.log(`Option selected:`, selectedOption);
         this.setState({itemsPerPage: selectedOption.props.value, page:1}, this.fetchJourneys);
     };
 
-    handlePageChange = (e, value) => {
+    handlePageChange = (value) => {
         this.setState({page:value}, this.fetchJourneys);
         console.log(`Option selected:`, value);
     };
@@ -61,25 +56,7 @@ class JourneyList extends Component {
     render() {
         let journeys = this.state.journeys.map((journey) => <ListItem key={journey.id}><Journey  journey={journey}/></ListItem>)
         return (<div>
-            <Grid container padding={2}>
-            <Grid xs={2}><FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Journeys per page</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={this.state.itemsPerPage}
-                    label="Journeys per page"
-                    onChange={this.handleItemCountChange}
-                >
-                    {options.map((option) => <MenuItem value={option.value}>{option.label}</MenuItem>)}
-                </Select>
-            </FormControl>
-            </Grid>
-            <Grid xs={8}>
-                <Pagination style={{margin:'auto', width:'fit-content', paddingTop:10}} count={this.state.pageCount} page={this.state.page} onChange={this.handlePageChange} />
-            </Grid>
-            </Grid>
-            <List dense>
+            <ListWithPagination itemsPerPage={this.state.itemsPerPage} page={this.state.page} pageCount={this.state.pageCount} onItemCountChange={this.handleItemCountChange} onPageChange={this.handlePageChange}>
                 <ListItem>
                 <Grid container>
                     <Grid onClick={(e) => this.handleSortChange("departureStation_nameFI", e)} xs={5}>
@@ -99,8 +76,8 @@ class JourneyList extends Component {
                 </ListItem>
                 <Divider/>
                 {journeys}
-            </List>
-            <Pagination style={{margin:'auto', width:'fit-content'}} count={this.state.pageCount} page={this.state.page} onChange={this.handlePageChange} />
+            </ListWithPagination>
+            {/*<Pagination style={{margin:'auto', width:'fit-content'}} count={this.state.pageCount} page={this.state.page} onChange={this.handlePageChange} />*/}
         </div>)
     }
 
