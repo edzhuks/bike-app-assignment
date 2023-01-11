@@ -2,7 +2,6 @@ package com.assignment.bikeapp.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,19 +12,19 @@ public class Journey {
     protected Long id;
 
     /**Departure date and time, precision to seconds**/
-    private Timestamp departure_time;
+    private Timestamp departureTime;
     /**Return date and time, precision to seconds**/
-    private Timestamp return_time;
+    private Timestamp returnTime;
 
 
     /**Departure station, saved as ID in the database**/
     @ManyToOne
     @JoinColumn(name = "departure_station", referencedColumnName = "id")
-    private Station departure_station;
+    private Station departureStation;
     /**Return station, saved as ID in the database**/
     @ManyToOne
     @JoinColumn(name = "return_station", referencedColumnName = "id")
-    private Station return_station;
+    private Station returnStation;
 
     /**Distance covered in the journey, in meters**/
     private int distance;
@@ -36,44 +35,44 @@ public class Journey {
     }
 
     public Journey(Timestamp departure_time, Timestamp return_time, Station departure_station, Station return_station, int distance, int duration) {
-        this.departure_time = departure_time;
-        this.return_time = return_time;
-        this.departure_station = departure_station;
-        this.return_station = return_station;
+        this.departureTime = departure_time;
+        this.returnTime = return_time;
+        this.departureStation = departure_station;
+        this.returnStation = return_station;
         this.distance = distance;
         this.duration = duration;
     }
 
-    public Timestamp getDeparture_time() {
-        return departure_time;
+    public Timestamp getDepartureTime() {
+        return departureTime;
     }
 
-    public void setDeparture_time(Timestamp departure_time) {
-        this.departure_time = departure_time;
+    public void setDepartureTime(Timestamp departure_time) {
+        this.departureTime = departure_time;
     }
 
-    public Timestamp getReturn_time() {
-        return return_time;
+    public Timestamp getReturnTime() {
+        return returnTime;
     }
 
-    public void setReturn_time(Timestamp return_time) {
-        this.return_time = return_time;
+    public void setReturnTime(Timestamp return_time) {
+        this.returnTime = return_time;
     }
 
-    public Station getDeparture_station() {
-        return departure_station;
+    public Station getDepartureStation() {
+        return departureStation;
     }
 
-    public void setDeparture_station(Station departure_station) {
-        this.departure_station = departure_station;
+    public void setDepartureStation(Station departure_station) {
+        this.departureStation = departure_station;
     }
 
-    public Station getReturn_station() {
-        return return_station;
+    public Station getReturnStation() {
+        return returnStation;
     }
 
-    public void setReturn_station(Station return_station) {
-        this.return_station = return_station;
+    public void setReturnStation(Station return_station) {
+        this.returnStation = return_station;
     }
 
     public int getDistance() {

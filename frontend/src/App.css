@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiListItem-dense:nth-child(even){
+  background: #f6f6f6;
+}
