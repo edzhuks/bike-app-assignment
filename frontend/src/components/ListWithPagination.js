@@ -32,10 +32,10 @@ class ListWithPagination extends Component {
         return (<div>
             <Grid container padding={2}>
                 <Grid xs={2}><FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Journeys per page</InputLabel>
+                    <InputLabel id="item-count-select-label">{this.props.itemName}s per page</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        labelId="item-count-select-label"
+                        id="item-count-select"
                         value={this.props.itemsPerPage}
                         label="Journeys per page"
                         onChange={this.handleItemCountChange}

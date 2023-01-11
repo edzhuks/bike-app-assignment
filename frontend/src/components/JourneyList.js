@@ -56,7 +56,7 @@ class JourneyList extends Component {
     render() {
         let journeys = this.state.journeys.map((journey) => <ListItem key={journey.id}><Journey  journey={journey}/></ListItem>)
         return (<div>
-            <ListWithPagination itemsPerPage={this.state.itemsPerPage} page={this.state.page} pageCount={this.state.pageCount} onItemCountChange={this.handleItemCountChange} onPageChange={this.handlePageChange}>
+            <ListWithPagination itemName="Journey" itemsPerPage={this.state.itemsPerPage} page={this.state.page} pageCount={this.state.pageCount} onItemCountChange={this.handleItemCountChange} onPageChange={this.handlePageChange}>
                 <ListItem>
                 <Grid container>
                     <Grid onClick={(e) => this.handleSortChange("departureStation_nameFI", e)} xs={5}>
