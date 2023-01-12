@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {FormControl, Grid, InputLabel, List, MenuItem, Pagination, Select} from "@mui/material";
 
 const options = [
-    { value: 20, label: "20" },
-    { value: 50, label: "50" },
-    { value: 100, label: "100" },
-    { value: 1000, label: "1000" },
+    {value: 20, label: "20"},
+    {value: 50, label: "50"},
+    {value: 100, label: "100"},
+    {value: 1000, label: "1000"},
 ];
 
 class ListWithPagination extends Component {
@@ -45,13 +45,15 @@ class ListWithPagination extends Component {
                 </FormControl>
                 </Grid>
                 <Grid xs={8}>
-                    <Pagination style={{margin:'auto', width:'fit-content', paddingTop:10}} count={this.props.pageCount} page={this.props.page} onChange={this.handlePageChange} />
+                    <Pagination style={{margin: 'auto', width: 'fit-content', paddingTop: 10}}
+                                count={this.props.pageCount} page={this.props.page} onChange={this.handlePageChange}/>
                 </Grid>
             </Grid>
             <List dense>
                 {this.props.children}
             </List>
-            <Pagination style={{margin:'auto', width:'fit-content'}} count={this.props.pageCount} page={this.props.page} onChange={this.handlePageChange} />
+            <Pagination style={{margin: 'auto', width: 'fit-content'}} count={this.props.pageCount}
+                        page={this.props.page} onChange={this.handlePageChange}/>
         </div>)
     }
 

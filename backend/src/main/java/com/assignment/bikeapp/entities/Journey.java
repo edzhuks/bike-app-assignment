@@ -18,11 +18,11 @@ public class Journey {
 
 
     /**Departure station, saved as ID in the database**/
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "departure_station", referencedColumnName = "id")
     private Station departureStation;
     /**Return station, saved as ID in the database**/
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "return_station", referencedColumnName = "id")
     private Station returnStation;
 

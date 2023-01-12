@@ -26,7 +26,7 @@ public class Station {
     /**
      * Station name in Swedish
      **/
-    @Column(name = "name_se", nullable = false)
+    @Column(name = "name_se", nullable = true)
     private String nameSE;
     /**
      * Station name in English
@@ -36,12 +36,12 @@ public class Station {
     /**
      * Station address in Finnish
      **/
-    @Column(name = "address_fi", nullable = false)
+    @Column(name = "address_fi", nullable = true)
     private String addressFI;
     /**
      * Station address in Swedish
      **/
-    @Column(name = "address_se", nullable = false)
+    @Column(name = "address_se", nullable = true)
     private String addressSE;
     /**
      * City in which the station is located, in Finnish
@@ -86,6 +86,11 @@ public class Station {
         this.capacity = capacity;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public Station(Long id, String nameFI){
+        this.id = id;
+        this.nameFI = nameFI;
     }
 
     public String getNameFI() {

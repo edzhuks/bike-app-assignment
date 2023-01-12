@@ -94,7 +94,24 @@ public class CSVService {
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(fileReader);
             List<Journey> journeys = new ArrayList<>();
             for (CSVRecord record : records) {
+                if(stationRepository.findById(Long.parseLong(record.get("Departure station id"))).isEmpty()){
+                    Station s = stationRepository.save(new Station(Long.parseLong(record.get("Departure station id")), record.get("Departure station name")));
+                }
+                if(stationRepository.findById(Long.parseLong(record.get("Return station id"))).isEmpty()){
+                    Station s = stationRepository.save(new Station(Long.parseLong(record.get("Return station id")), record.get("Return station name")));
+                }
                 Journey journey = journeyFromCSV(record);
+//                System.out.println(journey.getDepartureStation());
+//                if(journey.getDepartureStation()==null){
+//                    Station s = stationRepository.save(new Station(Long.parseLong(record.get("Departure station id")), record.get("Departure station name")));
+//                    journey.setDepartureStation(s);
+//                    System.out.println("Added a new station from journey data");
+//                }
+//                if(journey.getReturnStation()==null){
+//                    Station s = stationRepository.save(new Station(Long.parseLong(record.get("Return station id")), record.get("Return station name")));
+//                    journey.setReturnStation(s);
+//                    System.out.println("Added a new station from journey data");
+//                }
                 if (journey.isValid()) {
                     journeys.add(journey);
                 }

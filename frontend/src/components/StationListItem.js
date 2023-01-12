@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Grid, ListItem} from "@mui/material";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
