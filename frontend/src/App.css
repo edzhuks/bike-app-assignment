@@ -44,3 +44,32 @@
 a{
   color: black;
 }
+
+.right-chev{
+  clip-path: polygon(95% 0%, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
+  background-color: lightgray;
+  height: 30px;
+}
+
+.station-block{
+  text-align: center;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+.station-block div{
+  background-color: lightgray;
+  border-radius: 20px;
+  padding-bottom: 1px;
+  padding-top: 1px;
+}
+
+.station-side > :not(.right-chev){
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.station-right :not(.right-chev){
+  text-align: right;
+}

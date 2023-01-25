@@ -1,19 +1,22 @@
-import React, {Component} from 'react';
-import {Grid} from "@mui/material";
+// import React, {Component} from 'react';
+import {Grid, ListItem} from "@mui/material";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import {metersToKilometers, secondsToMinutes} from "../util/formatHelper";
 
-class Journey extends Component {
-    render() {
-        return (
+const Journey = ({journey}) => {
+
+    return (
+        <ListItem>
             <Grid container>
-                <Grid xs={5}>{this.props.journey.departureStation.nameFI}</Grid>
-                <Grid xs={1}><DoubleArrowIcon/></Grid>
-                <Grid xs={4}>{this.props.journey.returnStation.nameFI}</Grid>
-                <Grid xs={1}>{Math.round(this.props.journey.duration / 60)} min</Grid>
-                <Grid xs={1}>{Math.round((this.props.journey.distance / 1000 + Number.EPSILON) * 100) / 100} km</Grid>
+                <Grid item xs={5}>{journey.departureStationName}</Grid>
+                <Grid item xs={1}><DoubleArrowIcon/></Grid>
+                <Grid item xs={4}>{journey.returnStationName}</Grid>
+                <Grid item xs={1}>{secondsToMinutes(journey.duration)} min</Grid>
+                <Grid item xs={1}>{metersToKilometers(journey.distance)} km</Grid>
             </Grid>
-        )
-    }
+        </ListItem>
+
+    )
 }
 
 export default Journey;

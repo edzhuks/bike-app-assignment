@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping(path = "/csv")
 public class CSVController {
 
     @Autowired
     CSVService csvService;
 
-    @PostMapping(path = "/upload/stations")
+    @PostMapping(path = "/stations/csv")
     public ResponseEntity<String> uploadStationCSV(@RequestParam("file") MultipartFile file) {
 
         try {
@@ -30,7 +29,7 @@ public class CSVController {
 
     }
 
-    @PostMapping(path = "/upload/journeys")
+    @PostMapping(path = "/journeys/csv")
     public ResponseEntity<String> uploadJourneyCSV(@RequestParam("file") MultipartFile file) {
 
         try {

@@ -66,7 +66,9 @@ public class CSVService {
                 Timestamp.valueOf(csvRecord.get(0).replace('T', ' ')),
                 Timestamp.valueOf(csvRecord.get("Return").replace('T', ' ')),
                 stationRepository.getById(Long.parseLong(csvRecord.get("Departure station id"))),
+                csvRecord.get("Departure station name"),
                 stationRepository.getById(Long.parseLong(csvRecord.get("Return station id"))),
+                csvRecord.get("Return station name"),
                 Double.valueOf(csvRecord.get("Covered distance (m)")).intValue(),
                 Double.valueOf(csvRecord.get("Duration (sec.)")).intValue()
                 );

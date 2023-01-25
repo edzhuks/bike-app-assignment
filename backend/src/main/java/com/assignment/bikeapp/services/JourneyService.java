@@ -22,4 +22,27 @@ public class JourneyService {
         return journeyRepository.findAll(journeyPage);
     }
 
+    public int getJourneysFromStation(long stationId){
+        return journeyRepository.countJourneyByDepartureStationId(stationId);
+    }
+
+    public int getJourneysToStation(long stationId){
+        return journeyRepository.countJourneyByReturnStationId(stationId);
+    }
+
+    public Double getAverageDistanceOfJourneyFromStation(long stationId){
+        return journeyRepository.averageDistanceOfJourneyFromStation(stationId);
+    }
+
+    public Double getAverageDistanceOfJourneyToStation(long stationId){
+        return journeyRepository.averageDistanceOfJourneyToStation(stationId);
+    }
+
+    public Double getAverageDurationOfJourneyFromStation(long stationId){
+        return journeyRepository.averageDurationOfJourneyFromStation(stationId);
+    }
+
+    public Double getAverageDurationOfJourneyToStation(long stationId){
+        return journeyRepository.averageDurationOfJourneyToStation(stationId);
+    }
 }

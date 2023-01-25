@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
-import JourneyList from "./components/JourneyList";
-import StationList from "./components/StationList";
+import JourneyList, {loader as journeyListLoader} from "./components/JourneyList";
+import StationList, {loader as stationListLoader} from "./components/StationList";
+import Station, {loader as stationLoader} from "./components/Station";
 
 const router = createBrowserRouter([
     {
@@ -14,11 +15,20 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "journeys",
-                element: <JourneyList/>
+                element: <JourneyList/>,
+                loader: journeyListLoader
             },
             {
                 path: "stations",
-                element: <StationList/>
+                element: <StationList/>,
+                loader: stationListLoader,
+                children:[
+                    {
+                        path: ":id",
+                        element: <Station/>,
+                        loader: stationLoader
+                    }
+                ]
             }
         ]
     },

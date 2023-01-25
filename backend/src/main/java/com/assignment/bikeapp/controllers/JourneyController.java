@@ -17,13 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(path = "/journey")
 public class JourneyController {
 
     @Autowired
     JourneyService journeyService;
 
-    @GetMapping(path = "/list")
+    @GetMapping(path = "/journeys")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, Object>> getSomeJourneys(@RequestParam int page, @RequestParam int itemsPerPage, @RequestParam String sortField, @RequestParam String sortOrder){
         Page<Journey> journeyPage= journeyService.getSomeJourneys(page, itemsPerPage, sortField, sortOrder.equals("asc"));

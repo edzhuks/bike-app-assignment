@@ -2,89 +2,112 @@ import React, {Component} from 'react';
 import StationListItem from "./StationListItem";
 import {Divider, Grid, ListItem} from "@mui/material";
 import ListWithPagination from "./ListWithPagination";
+import {Link, Outlet, useLoaderData, useSearchParams} from "react-router-dom";
+import ListHeader from "./ListHeader";
 
 
-class JourneyList extends Component {
+export async function loader({request}) {
+    const url = new URL(request.url);
+    console.log(url)
+    return fetch(`http://localhost:8080/stations${url.search}`)
+        .then((res) => res.json())
+        .then(data => {
+            console.log(data)
+            return data
+        });
+}
 
+const StationList = () => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            stations: [],
-            page: 1,
-            pageCount: 10,
-            itemsPerPage: 20,
-            sortField: 'capacity',
-            sortOrderAscending: true
-        };
-        this.handleItemCountChange.bind(this)
-    }
+    let {pageCount, stations} = useLoaderData()
 
-    fetchStations() {
-        fetch(`http://localhost:8080/station/list?page=${this.state.page - 1}&itemsPerPage=${this.state.itemsPerPage}&sortField=${this.state.sortField}&sortOrder=${this.state.sortOrder ? 'asc' : 'desc'}`)
-            .then((res) => res.json())
-            .then(data => {
-                console.log(data)
-                this.setState({
-                    stations: data.stations,
-                    pageCount: data.pageCount
-                });
-            });
-    }
+    let [searchParams, setSearchParams] = useSearchParams();
 
-    componentDidMount() {
-        this.fetchStations()
-    }
-
-    handleItemCountChange = (selectedOption) => {
-        console.log(`Option selected:`, selectedOption);
-        this.setState({itemsPerPage: selectedOption.props.value, page: 1}, this.fetchStations);
+    const handleItemCountChange = (selectedOption) => {
+        searchParams.set("page", 0);
+        searchParams.set("itemsPerPage", selectedOption.props.value);
+        setSearchParams(searchParams);
     };
 
-    handlePageChange = (value) => {
-        this.setState({page: value}, this.fetchStations);
-        console.log(`Option selected:`, value);
+    const handlePageChange = (value) => {
+        searchParams.set("page", value - 1);
+        setSearchParams(searchParams);
+        console.log(searchParams.get("page"))
     };
 
-    handleSortChange = (sortField, e) => {
-        this.setState((state, props) => ({
-            sortOrder: state.sortField === sortField ? !state.sortOrder : state.sortOrder,
-            sortField: sortField
-        }), this.fetchStations);
-        console.log(`Option selected:`, sortField);
-    };
-
-    render() {
-        let stations = this.state.stations.map((station) => <StationListItem key={station.id} station={station}/>)
-        return (<div>
-            <ListWithPagination itemName="Station" itemsPerPage={this.state.itemsPerPage} page={this.state.page}
-                                pageCount={this.state.pageCount} onItemCountChange={this.handleItemCountChange}
-                                onPageChange={this.handlePageChange}>
-                <ListItem>
-                    <Grid container>
-                        <Grid onClick={(e) => this.handleSortChange("nameFI", e)} xs={3}>
-                            Name{this.state.sortField === "nameFI" && (!this.state.sortOrder ? ' ↑' : ' ↓')}
-                        </Grid>
-                        <Grid onClick={(e) => this.handleSortChange("addressFI", e)} xs={3}>
-                            Address{this.state.sortField === "addressFI" && (!this.state.sortOrder ? ' ↑' : ' ↓')}
-                        </Grid>
-                        <Grid onClick={(e) => this.handleSortChange("cityFI", e)} xs={2}>
-                            City{this.state.sortField === "cityFI" && (!this.state.sortOrder ? ' ↑' : ' ↓')}
-                        </Grid>
-                        <Grid onClick={(e) => this.handleSortChange("operator", e)} xs={2}>
-                            Operator{this.state.sortField === "operator" && (!this.state.sortOrder ? ' ↑' : ' ↓')}
-                        </Grid>
-                        <Grid onClick={(e) => this.handleSortChange("capacity", e)} xs={2}>
-                            Capacity{this.state.sortField === "capacity" && (!this.state.sortOrder ? ' ↑' : ' ↓')}
-                        </Grid>
-                    </Grid>
-                </ListItem>
-                <Divider/>
-                {stations}
-            </ListWithPagination>
-        </div>)
+    const newSortOrder = (newSortField) => {
+        if (newSortField !== searchParams.get("sortField")) {
+            return searchParams.get("sortOrder")
+        } else {
+            if (searchParams.get("sortOrder") === "asc") {
+                return "desc"
+            } else {
+                return "asc"
+            }
+        }
     }
+
+    const handleSortChange = (sortField, e) => {
+        searchParams.set("sortOrder", newSortOrder(sortField))
+        searchParams.set("sortField", sortField)
+        setSearchParams(searchParams)
+    };
+
+    function handleStationSelect(station, e) {
+        console.log(station)
+    }
+
+    let stationItems = stations.map((station) => <StationListItem key={station.id} station={station}
+                                                                  linkTo={`/stations/${station.id}?${searchParams}`}/>)
+    const headers = [
+        {
+            searchField: "nameFI",
+            name: "Name",
+            size: 3
+        },
+        {
+            searchField: "addressFI",
+            name: "Address",
+            size: 4
+        },
+        {
+            searchField: "cityFI",
+            name: "City",
+            size: 2
+        },
+        {
+            searchField: "operator",
+            name: "Operator",
+            size: 2
+        },
+        {
+            searchField: "capacity",
+            name: "Capacity",
+            size: 1
+        },
+    ]
+    return (
+        <Grid container>
+            <Grid item xs={6} paddingX={5}>
+                <ListWithPagination itemName="Station" itemsPerPage={searchParams.get("itemsPerPage")}
+                                    page={parseInt(searchParams.get("page")) + 1}
+                                    pageCount={pageCount} onItemCountChange={handleItemCountChange}
+                                    onPageChange={handlePageChange}>
+                    <ListHeader
+                        handleSortChange={handleSortChange}
+                        currentSortField={searchParams.get("sortField")}
+                        currentlySortDescending={searchParams.get("sortOrder") === "desc"}
+                        headers={headers}/>
+                    <Divider/>
+                    {stationItems}
+                </ListWithPagination>
+            </Grid>
+            <Grid item xs={6} paddingRight={5}>
+                <Outlet/>
+            </Grid>
+        </Grid>)
+
 
 }
 
-export default JourneyList;
+export default StationList;
