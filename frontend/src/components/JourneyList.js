@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Journey from "./Journey";
-import {Divider, Grid, ListItem} from "@mui/material";
+import {Container, Divider, Grid, ListItem, Paper} from "@mui/material";
 import ListWithPagination from "./ListWithPagination";
 import {useLoaderData, useSearchParams} from "react-router-dom";
 import ListHeader from "./ListHeader";
@@ -56,47 +56,35 @@ const JourneyList = () => {
 
     let journeyitems = journeys.map((journey) => <Journey key={journey.id} journey={journey}/>)
 
-    const headers = [
-        {
-            searchField: "departureStationName",
-            name: "Departure",
-            size: 6
-        },
-        {
-            searchField: "returnStationName",
-            name: "Return",
-            size: 4
-        },
-        {
-            searchField: "duration",
-            name: "Duration",
-            size: 1
-        },
-        {
-            searchField: "distance",
-            name: "Distance",
-            size: 1
-        },
-    ]
+    const headers = [{
+        searchField: "departureStationName", name: "Departure", size: 6
+    }, {
+        searchField: "returnStationName", name: "Return", size: 4
+    }, {
+        searchField: "duration", name: "Duration", size: 1
+    }, {
+        searchField: "distance", name: "Distance", size: 1
+    },]
 
-    return (<div>
-        {journeys ?
-        <ListWithPagination itemName="Journey" itemsPerPage={searchParams.get("itemsPerPage")}
-                            page={parseInt(searchParams.get("page")) + 1}
-                            pageCount={pageCount} onItemCountChange={handleItemCountChange}
-                            onPageChange={handlePageChange}>
+    return (
+        <Container>
+            <Paper sx={{p: 4}}>
+                {journeys !== undefined && journeys.length > 0 ?
+                    <ListWithPagination itemName="Journey" itemsPerPage={searchParams.get("itemsPerPage")}
+                                        page={parseInt(searchParams.get("page")) + 1}
+                                        pageCount={pageCount} onItemCountChange={handleItemCountChange}
+                                        onPageChange={handlePageChange}>
 
-            <ListHeader
-                handleSortChange={handleSortChange}
-                currentSortField={searchParams.get("sortField")}
-                currentlySortDescending={searchParams.get("sortOrder") === "desc"}
-                headers={headers}/>
-            <Divider/>
-            {journeyitems}
-        </ListWithPagination>
-            :
-            <p>No journeys found</p>}
-    </div>)
+                        <ListHeader
+                            handleSortChange={handleSortChange}
+                            currentSortField={searchParams.get("sortField")}
+                            currentlySortDescending={searchParams.get("sortOrder") === "desc"}
+                            headers={headers}/>
+                        <Divider/>
+                        {journeyitems}
+                    </ListWithPagination> : <p>No journeys found</p>}
+            </Paper>
+        </Container>)
 
 
 }

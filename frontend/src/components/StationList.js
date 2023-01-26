@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import StationListItem from "./StationListItem";
-import {Divider, Grid, ListItem} from "@mui/material";
+import {Divider, Grid, ListItem, Paper} from "@mui/material";
 import ListWithPagination from "./ListWithPagination";
 import {Link, Outlet, useLoaderData, useSearchParams} from "react-router-dom";
 import ListHeader from "./ListHeader";
@@ -88,7 +88,8 @@ const StationList = () => {
     ]
     return (
         <Grid container>
-            <Grid item xs={6} paddingX={5}>
+            <Grid item xs={6} paddingX={4}>
+                <Paper sx={{p:4}}>
                 <ListWithPagination itemName="Station" itemsPerPage={searchParams.get("itemsPerPage")}
                                     page={parseInt(searchParams.get("page")) + 1}
                                     pageCount={pageCount} onItemCountChange={handleItemCountChange}
@@ -101,9 +102,10 @@ const StationList = () => {
                     <Divider/>
                     {stationItems}
                 </ListWithPagination>
+                </Paper>
             </Grid>
-            <Grid item xs={6} paddingRight={5}>
-                <Outlet/>
+            <Grid item xs={6} paddingRight={5} style={{position:'absolute', right:0, display:'inline-flex', width:'44%'}}>
+                <Outlet />
             </Grid>
         </Grid>)
 

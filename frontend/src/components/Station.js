@@ -1,12 +1,13 @@
 import {Form, useLoaderData, useParams} from "react-router-dom";
-import React, {Component} from 'react';
-import {Grid, ListItem} from "@mui/material";
+import React, {Component, useEffect} from 'react';
+import {Grid, ListItem, Paper} from "@mui/material";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import PlaceIcon from '@mui/icons-material/Place';
 import {metersToKilometers, secondsToMinutes} from "../util/formatHelper";
 import StationListItem from "./StationListItem";
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import {SpaceBar} from "@mui/icons-material";
+import {MapContainer, Marker, Popup, TileLayer, useMap} from 'react-leaflet'
 
 export async function loader({params}) {
     return fetch(`http://localhost:8080/stations/${params.id}`)
@@ -47,17 +48,28 @@ const ToOrFromStationInfo = ({stationData, to}) => {
     </div>)
 }
 
+const RecenterAutomatically = ({lat,lng}) => {
+    const map = useMap();
+    useEffect(() => {
+        map.setView([lat, lng], 13);
+    }, [lat, lng]);
+    return null;
+}
+
 const Station = () => {
 
     const stationData = useLoaderData()
+
+
     return (
 
-        <div>
+        <div style={{width:'100%'}}>
+            <Paper sx={{p:4}}>
             <Grid container>
-                <Grid xs={4} className={"station-side station-left"}>
+                <Grid item xs={4} className={"station-side station-left"}>
                     <ToOrFromStationInfo stationData={stationData} to={true}/>
                 </Grid>
-                <Grid xs={4} className={"station-block"}>
+                <Grid item xs={4} className={"station-block"}>
                     <div>
                         <h2>{stationData.station.nameFI}</h2>
                         <p>
@@ -70,10 +82,25 @@ const Station = () => {
                         </p>
                     </div>
                 </Grid>
-                <Grid xs={4} className={"station-side station-right"}>
+                <Grid item xs={4} className={"station-side station-right"}>
                     <ToOrFromStationInfo stationData={stationData} to={false}/>
                 </Grid>
             </Grid>
+            </Paper>
+            <Paper sx={{p:4, mt:4}}>
+            <MapContainer style={{height:600, width:'100%'}} center={[stationData.station.latitude, stationData.station.longitude]} zoom={13} scrollWheelZoom={false}>
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[stationData.station.latitude, stationData.station.longitude]}>
+                    <Popup>
+                        A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                </Marker>
+                <RecenterAutomatically lat={stationData.station.latitude} lng={stationData.station.longitude} />
+            </MapContainer>
+            </Paper>
         </div>
 
     )

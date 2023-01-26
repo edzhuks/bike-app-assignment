@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {FormControl, Grid, InputLabel, List, MenuItem, Pagination, Select} from "@mui/material";
 
 const options = [
-    {value: 20, label: "20"},
+    {value: 30, label: "30"},
     {value: 50, label: "50"},
     {value: 100, label: "100"},
     {value: 1000, label: "1000"},
