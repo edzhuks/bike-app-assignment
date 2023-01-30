@@ -14,7 +14,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -38,7 +37,7 @@
 }
 
 .MuiListItem-dense:nth-child(even){
-  background: #f6f6f6;
+  background: rgba(251, 192, 45, 0.06);
 }
 
 a{
@@ -47,27 +46,24 @@ a{
 
 .right-chev{
   clip-path: polygon(95% 0%, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
-  background-color: lightgray;
+  background: rgba(251, 192, 45, 0.24);
   height: 30px;
 }
 
-.station-block{
-  text-align: center;
-  padding-right: 15px;
-  padding-left: 15px;
-  padding-top: 15px;
-}
-
-.station-block div{
-  background-color: lightgray;
+.station-block {
+  background: rgba(251, 192, 45, 0.24);
   border-radius: 20px;
-  padding-bottom: 1px;
-  padding-top: 1px;
+  padding-bottom: 15px;
+  text-align: center;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding-top: 15px;
+  margin-top: 40px;
 }
 
 .station-side > :not(.right-chev){
-  padding-left: 20px;
-  padding-right: 20px;
+  /*padding-left: 20px;*/
+  /*padding-right: 20px;*/
 }
 
 .station-right :not(.right-chev){

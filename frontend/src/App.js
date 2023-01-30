@@ -1,15 +1,11 @@
 import './App.css';
-import React, {Component, useState} from 'react';
-import JourneyList from './components/JourneyList';
-import StationList from "./components/StationList";
+import {useState} from 'react';
 import {
-    Badge,
     Box,
     Container,
     createTheme,
     Divider,
     styled,
-    Grid,
     IconButton,
     List,
     ListItem,
@@ -20,14 +16,19 @@ import {
     Toolbar,
     Typography,
     AppBar as MuiAppBar,
-    Drawer as MuiDrawer
+    Drawer as MuiDrawer, CssBaseline
 } from "@mui/material";
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link, Outlet} from "react-router-dom";
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import {Link, Outlet, Navigate} from "react-router-dom";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import {yellow} from "@mui/material/colors";
+
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -57,8 +58,8 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
     },
 }),);
 
-const drawerWidth = 240;
-const theme = createTheme()
+const drawerWidth = 180;
+const theme = createTheme({palette:{primary:{main:yellow[700]}}})
 
 const App = () => {
 
@@ -68,11 +69,9 @@ const App = () => {
     };
 
     return (
-
-
         <ThemeProvider theme={theme}>
-
             <Box sx={{display: 'flex'}}>
+                <CssBaseline/>
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
@@ -143,15 +142,17 @@ const App = () => {
                     }}
                 >
                     <Toolbar/>
+                    <Navigate to={"journeys?page=0&itemsPerPage=30&sortField=duration&sortOrder=asc"}/>
                     <Container maxWidth="xxlg" sx={{mt: 4, mb: 2}}>
-                    {/*<Container>*/}
-                    <Outlet>
+                        <Outlet>
 
                         </Outlet>
                     </Container>
 
                 </Box>
-            </Box></ThemeProvider>);
+            </Box>
+        </ThemeProvider>
+    );
 
 }
 

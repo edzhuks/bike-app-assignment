@@ -24,8 +24,20 @@ public class JourneyController {
 
     @GetMapping(path = "/journeys")
     @CrossOrigin("http://localhost:3000")
-    public ResponseEntity<Map<String, Object>> getSomeJourneys(@RequestParam int page, @RequestParam int itemsPerPage, @RequestParam String sortField, @RequestParam String sortOrder){
-        Page<Journey> journeyPage= journeyService.getSomeJourneys(page, itemsPerPage, sortField, sortOrder.equals("asc"));
+    public ResponseEntity<Map<String, Object>> getSomeJourneys(@RequestParam int page,
+                                                               @RequestParam int itemsPerPage,
+                                                               @RequestParam String sortField,
+                                                               @RequestParam String sortOrder,
+                                                               @RequestParam(required = false) String departureName,
+                                                               @RequestParam(required = false) String returnName,
+                                                               @RequestParam(required = false) String eitherName,
+                                                               @RequestParam(required = false) Integer distanceMin,
+                                                               @RequestParam(required = false) Integer distanceMax,
+                                                               @RequestParam(required = false) Integer durationMin,
+                                                               @RequestParam(required = false) Integer durationMax){
+        Page<Journey> journeyPage= journeyService.getSomeJourneysWithFilter(page, itemsPerPage, sortField,
+                sortOrder.equals("asc"), departureName, returnName, eitherName,
+                distanceMin, distanceMax, durationMin, durationMax);
         Map<String, Object> response = new HashMap<>();
         response.put("journeys", journeyPage.getContent());
         response.put("pageCount", journeyPage.getTotalPages());

@@ -1,6 +1,4 @@
-import React, {Component} from 'react';
-import {Grid, ListItem} from "@mui/material";
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import {Grid, ListItem, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 
 const StationListItem = ({station, linkTo}) => {
@@ -9,13 +7,31 @@ const StationListItem = ({station, linkTo}) => {
             <Grid container>
                 <Grid item xs={3}>
                     <Link to={linkTo}>
-                        {station.nameFI}
+                        <Typography variant="body2" component="p">
+                            {station.nameFI}
+                        </Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={4}>{station.addressFI}</Grid>
-                <Grid item xs={2}>{station.cityFI}</Grid>
-                <Grid item xs={2}>{station.operator}</Grid>
-                <Grid item xs={1}>{station.capacity}</Grid>
+                <Grid item xs={4}>
+                    <Typography variant="body2" component="p">
+                        {station.addressFI}
+                    </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                    <Typography variant="body2" component="p">
+                        {station.cityFI}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                    <Typography variant="body2" component="p">
+                        {station.operator}
+                    </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                    <Typography variant="body2" component="p">
+                        {station.capacity}
+                    </Typography>
+                </Grid>
             </Grid>
         </ListItem>
     )
