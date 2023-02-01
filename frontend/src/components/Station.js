@@ -5,9 +5,10 @@ import PlaceIcon from '@mui/icons-material/Place';
 import {metersToKilometers, secondsToMinutes} from "../util/formatHelper";
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import {MapContainer, Marker, Popup, TileLayer, useMap} from 'react-leaflet'
+import {baseUrl} from "../services/baseAddress";
 
 export async function loader({params}) {
-    return fetch(`http://localhost:8080/stations/${params.id}`)
+    return fetch(`${baseUrl}stations/${params.id}`)
         .then((res) => res.json())
         .then(data => {
             return data

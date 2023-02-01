@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,8 @@ public class CSVController {
     @Autowired
     CSVService csvService;
 
-    @PostMapping(path = "/stations/csv")
+    @PostMapping(path = "/api/stations/csv")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<String> uploadStationCSV(@RequestParam("file") MultipartFile file) {
 
         try {
@@ -29,7 +31,8 @@ public class CSVController {
 
     }
 
-    @PostMapping(path = "/journeys/csv")
+    @PostMapping(path = "/api/journeys/csv")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<String> uploadJourneyCSV(@RequestParam("file") MultipartFile file) {
 
         try {

@@ -22,7 +22,7 @@ public class JourneyController {
     @Autowired
     JourneyService journeyService;
 
-    @GetMapping(path = "/journeys")
+    @GetMapping(path = "/api/journeys")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, Object>> getSomeJourneys(@RequestParam int page,
                                                                @RequestParam int itemsPerPage,

@@ -5,6 +5,7 @@ import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import JourneyList, {loader as journeyListLoader} from "./components/JourneyList";
 import StationList, {loader as stationListLoader} from "./components/StationList";
 import Station, {loader as stationLoader} from "./components/Station";
+import DataUploadPage from "./components/DataUpload"
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
                         loader: stationLoader
                     }
                 ]
+            },
+            {
+                path: "upload",
+                element: <DataUploadPage/>
             }
         ]
     },

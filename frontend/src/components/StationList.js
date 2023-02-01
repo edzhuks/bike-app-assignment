@@ -4,12 +4,13 @@ import ListWithPagination from "./ListWithPagination";
 import {Outlet, useLoaderData, useSearchParams, useOutlet} from "react-router-dom";
 import ListHeader from "./ListHeader";
 import {MapContainer, TileLayer} from "react-leaflet";
+import {baseUrl} from "../services/baseAddress";
 
 
 export async function loader({request}) {
     const url = new URL(request.url);
     console.log(url)
-    return fetch(`http://localhost:8080/stations${url.search}`)
+    return fetch(`${baseUrl}stations${url.search}`)
         .then((res) => res.json())
         .then(data => {
             console.log(data)

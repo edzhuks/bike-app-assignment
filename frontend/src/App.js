@@ -22,12 +22,13 @@ import WarehouseIcon from '@mui/icons-material/Warehouse';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link, Outlet, Navigate} from "react-router-dom";
+import {Link, Outlet, Navigate, useOutlet} from "react-router-dom";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {yellow} from "@mui/material/colors";
+import {Upload} from "@mui/icons-material";
 
 
 const AppBar = styled(MuiAppBar, {
@@ -62,6 +63,8 @@ const drawerWidth = 180;
 const theme = createTheme({palette:{primary:{main:yellow[700]}}})
 
 const App = () => {
+
+    const outlet = useOutlet()
 
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
@@ -130,6 +133,15 @@ const App = () => {
                                 <ListItemText primary={"Stations"}/>
                             </ListItemButton>
                         </ListItem>
+                        <ListItem key={"Upload"} disablePadding component={Link}
+                                  to={"/upload"}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <Upload/>
+                                </ListItemIcon>
+                                <ListItemText primary={"Upload data"}/>
+                            </ListItemButton>
+                        </ListItem>
                     </List>
                 </Drawer>
                 <Box
@@ -142,11 +154,12 @@ const App = () => {
                     }}
                 >
                     <Toolbar/>
-                    <Navigate to={"journeys?page=0&itemsPerPage=30&sortField=duration&sortOrder=asc"}/>
                     <Container maxWidth="xxlg" sx={{mt: 4, mb: 2}}>
-                        <Outlet>
-
-                        </Outlet>
+                        {outlet ?
+                            <Outlet/>
+                            :
+                            <Navigate to={"journeys?page=0&itemsPerPage=30&sortField=duration&sortOrder=asc"}/>
+                        }
                     </Container>
 
                 </Box>

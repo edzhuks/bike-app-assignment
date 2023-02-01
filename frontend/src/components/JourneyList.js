@@ -6,11 +6,12 @@ import {useLoaderData, useSearchParams} from "react-router-dom";
 import ListHeader from "./ListHeader";
 import {Search} from "@mui/icons-material";
 import {DurationSlider, DistanceSlider} from './Sliders'
+import {baseUrl} from "../services/baseAddress";
 
 
 export async function loader({request}) {
     const url = new URL(request.url);
-    return fetch(`http://localhost:8080/journeys${url.search}`)
+    return fetch(`${baseUrl}journeys${url.search}`)
         .then((res) => res.json())
         .then(data => {
             return data

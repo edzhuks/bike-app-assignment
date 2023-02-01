@@ -25,7 +25,7 @@ public class StationController {
     @Autowired
     JourneyService journeyService;
 
-    @GetMapping(path = "/stations")
+    @GetMapping(path = "/api/stations")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, Object>> getSomeStations(@RequestParam int page, @RequestParam int itemsPerPage, @RequestParam String sortField, @RequestParam String sortOrder){
         Page<Station> journeyPage= stationService.getSomeStations(page, itemsPerPage, sortField, sortOrder.equals("asc"));
@@ -35,7 +35,7 @@ public class StationController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping(path = "/stations/{id}")
+    @GetMapping(path = "/api/stations/{id}")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Map<String, Object>> setStationInfo(@PathVariable Long id){
         Optional<Station> station = stationService.getStationById(id);
