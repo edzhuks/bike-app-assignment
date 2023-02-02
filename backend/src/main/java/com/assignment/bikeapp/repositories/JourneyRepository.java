@@ -15,14 +15,14 @@ public interface JourneyRepository extends JpaRepository<Journey, Long> {
     int countJourneyByDepartureStationId(long id);
     int countJourneyByReturnStationId(long id);
 
-    @Query(value = "select avg(j.distance) from Journey j where j.departure_station = ?1", nativeQuery = true)
+    @Query(value = "select avg(j.distance) from journey j where j.departure_station = ?1", nativeQuery = true)
     Double  averageDistanceOfJourneyFromStation(long id);
-    @Query(value = "select avg(j.distance) from Journey j where j.return_station = ?1", nativeQuery = true)
+    @Query(value = "select avg(j.distance) from journey j where j.return_station = ?1", nativeQuery = true)
     Double  averageDistanceOfJourneyToStation(long id);
 
-    @Query(value = "select avg(j.duration) from Journey j where j.departure_station = ?1", nativeQuery = true)
+    @Query(value = "select avg(j.duration) from journey j where j.departure_station = ?1", nativeQuery = true)
     Double averageDurationOfJourneyFromStation(long id);
-    @Query(value = "select avg(j.duration) from Journey j where j.return_station = ?1", nativeQuery = true)
+    @Query(value = "select avg(j.duration) from journey j where j.return_station = ?1", nativeQuery = true)
     Double averageDurationOfJourneyToStation(long id);
 
     /**

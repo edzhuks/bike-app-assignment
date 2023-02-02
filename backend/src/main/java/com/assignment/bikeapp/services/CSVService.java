@@ -104,9 +104,18 @@ public class CSVService {
                     Station s = stationRepository.save(new Station(Long.parseLong(  record.get("Return station id")),
                                                                                     record.get("Return station name")));
                 }
-                Journey journey = journeyFromCSV(record);
-                if (journey.isValid()) {
-                    journeys.add(journey);
+                try {
+                    Journey journey = journeyFromCSV(record);
+                    if (journey.isValid()) {
+                        journeys.add(journey);
+                    }
+                    if (journeys.size() % 100 == 0) {
+                        System.out.println(journeys.size());
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("Journey had fields in wrong format, could not create");
+                } catch (IllegalArgumentException e){
+                    System.out.println("Journey had time in wrong format, could not create");
                 }
             }
             return journeys;
