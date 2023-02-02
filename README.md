@@ -45,7 +45,7 @@ searching or filtering slows it down noticeably. Clicking a station takes you to
 -- there is no loading indicator so it is not clear whether searching finished.
 
 ## Station list
-![](./stationList.png)
+![](./stationlist.png)
 Lists all the stations with pagination and ordering by column. Clicking a station goes to that stations page.
 
 ## Single station
