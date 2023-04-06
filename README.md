@@ -1,9 +1,5 @@
 # Solita Dev Academy assignment
 
-Try it out here: http://bikeapp-env.eba-mvxmn6g2.eu-central-1.elasticbeanstalk.com \
-Please view it in landscape on a computer, since it is not responsive and is not guaranteed to look good otherwise.\
-Both Spring boot server and MySQL database are deployed on aws, react webapp is served from the spring boot server.
-
 The application is developed with a Java Spring Boot backend and React frontend. The chosen database technology is MySQL.
 
 ## Instructions
