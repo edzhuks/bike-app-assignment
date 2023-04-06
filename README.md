@@ -1,5 +1,7 @@
 # Solita Dev Academy assignment
 
+https://github.com/solita/dev-academy-2023-exercise
+
 The application is developed with a Java Spring Boot backend and React frontend. The chosen database technology is MySQL.
 
 ## Instructions
